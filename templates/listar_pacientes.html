@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pacientes</title>
+</head>
+<body>
+    <h1>Pacientes</h1>
+    <a href="{{ url_for('crear_paciente') }}">Crear nuevo paciente</a>
+    <ul>
+        {% for paciente in pacientes %}
+            <li>ID: {{ paciente.id }} - Nombre: {{ paciente.nombre }} - DNI: {{ paciente.dni }}</li>
+        {% else %}
+            <li>No hay pacientes registrados.</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('index') }}">Volver al inicio</a>
+</body>
+</html>

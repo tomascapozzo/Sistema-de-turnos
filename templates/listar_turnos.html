@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Turnos</title>
+</head>
+<body>
+    <h1>Listado de Turnos</h1>
+
+    {% if turnos %}
+        <table border="1" cellpadding="5">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Paciente</th>
+                    <th>Profesional</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for turno in turnos %}
+                    <tr>
+                        <td>{{ turno.id }}</td>
+                        <td>{{ obtener_nombre_paciente(turno.paciente_id) }}</td>
+                        <td>{{ obtener_nombre_profesional(turno.profesional_id) }}</td>
+                        <td>{{ turno.fecha }}</td>
+                        <td>{{ turno.hora }}</td>
+                        <td>{{ turno.estado.name }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No hay turnos registrados.</p>
+    {% endif %}
+
+    <br>
+    <a href="/">Volver al inicio</a>
+    <a href="/turnos/nuevo">Agregar turno</a>
+</body>
+</html>

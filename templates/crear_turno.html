@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sacar Turno</title>
+</head>
+<body>
+  <h1>Nuevo Turno</h1>
+    <form method="POST">
+        <label>ID Paciente:<br>
+        <input type="number" name="paciente_id" required><br>
+        </label>
+
+        <label>ID Profesional:<br>
+        <input type="number" name="profesional_id" required><br>
+        </label>
+
+        <label>Fecha :<br>
+        <input type="date" name="fecha" min="2025-05-05" max="2026-12-31" required><br>
+
+        </label>
+
+        <label>Hora :<br>
+        <input type="time" value="" name="hora" required><br><br>
+        </label>
+
+        <button type="submit">Guardar Turno</button>
+    </form>
+</body>
+</html>
