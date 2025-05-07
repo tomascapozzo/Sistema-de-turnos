@@ -1,30 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Sacar Turno</title>
+    <title>Nuevo Turno</title>
 </head>
 <body>
-  <h1>Nuevo Turno</h1>
+    <h2>Crear Nuevo Turno</h2>
     <form method="POST">
-        <label>ID Paciente:<br>
-        <input type="number" name="paciente_id" required><br>
-        </label>
+        <label for="paciente_id">Paciente:</label>
+        <select name="paciente_id" required>
+            {% for paciente in pacientes %}
+                <option value="{{ paciente.id }}">{{ paciente.nombre }} {{ paciente.apellido }}</option>
+            {% endfor %}
+        </select><br>
 
-        <label>ID Profesional:<br>
-        <input type="number" name="profesional_id" required><br>
-        </label>
+        <label for="profesional_id">Profesional:</label>
+        <select name="profesional_id" required>
+            {% for profesional in profesionales %}
+                <option value="{{ profesional.id }}">{{ profesional.nombre }} {{ profesional.apellido }}</option>
+            {% endfor %}
+        </select><br>
 
-        <label>Fecha :<br>
-        <input type="date" name="fecha" min="2025-05-05" max="2026-12-31" required><br>
+        <label for="fecha">Fecha:</label>
+        <input type="date" name="fecha" required><br>
 
-        </label>
+        <label for="hora">Hora:</label>
+        <input type="time" name="hora" required><br>
 
-        <label>Hora :<br>
-        <input type="time" value="" name="hora" required><br><br>
-        </label>
-
-        <button type="submit">Guardar Turno</button>
+        <button type="submit">Crear Turno</button>
     </form>
+    <a href="{{ url_for('listar_turnos') }}">⬅ Volver</a>
+<script>
+  function validarFormulario() {
+    const fecha = document.getElementById('fecha').value;
+    const hora = document.getElementById('hora').value;
+    const fechaHoraIngresada = new Date(`${fecha}T${hora}`);
+    const ahora = new Date();
+
+    if (fechaHoraIngresada < ahora) {
+      alert("No se puede asignar un turno en el pasado.");
+      return false;
+    }
+    return true;
+  }
+</script>
 </body>
 </html>

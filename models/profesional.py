@@ -17,4 +17,4 @@ class Profesional(Base):
     apellido = Column(String(100), nullable=False)
     email = Column(String(100), nullable=False)
     telefono = Column(String(20), nullable=False)
-    especialidad = Column(String(100), nullable=False)
+    especialidades = Column(String(100), nullable=False)

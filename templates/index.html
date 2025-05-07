@@ -1,10 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Inicio - Sistema de Turnos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 2rem;
+            background-color: #f7f7f7;
+        }
+        h1 {
+            color: #333;
+        }
+        .menu {
+            margin-top: 2rem;
+        }
+        .menu a {
+            display: inline-block;
+            padding: 1rem 2rem;
+            margin: 1rem;
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+        }
+        .menu a:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
+
+<h1>Bienvenido al Sistema de Turnos</h1>
+<p>Seleccione una opción para comenzar:</p>
+
+<div class="menu">
+    <a href="{{ url_for('listar_turnos') }}">📅 Ver Turnos</a>
+    <a href="{{ url_for('listar_pacientes') }}">🧑‍⚕️ Ver Pacientes</a>
+    <a href="{{ url_for('listar_profesionales') }}">🏥 Ver Profesionales</a>
+</div>
 
 </body>
 </html>

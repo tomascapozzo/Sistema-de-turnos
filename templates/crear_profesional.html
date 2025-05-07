@@ -11,7 +11,12 @@
   Apellido: <input type="text" name="apellido"><br>
   Telefono: <input type="text" name="telefono"><br>
   Email: <input type="email" name="email"> <br>
-  Especialidad: <input type="text" name="especialidad"><br>
+<label for="especialidad">Especialidad:</label>
+<select name="especialidad" id="especialidad">
+  {% for esp in especialidades %}
+    <option value="{{ esp.name }}">{{ esp.value }}</option>
+  {% endfor %}
+</select><br>
   <button type="submit">Guardar</button>
 </form>
 

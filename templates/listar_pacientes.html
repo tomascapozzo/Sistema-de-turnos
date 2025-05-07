@@ -9,7 +9,7 @@
     <a href="{{ url_for('crear_paciente') }}">Crear nuevo paciente</a>
     <ul>
         {% for paciente in pacientes %}
-            <li>ID: {{ paciente.id }} - Nombre: {{ paciente.nombre }} - DNI: {{ paciente.dni }}</li>
+            <li>ID: {{ paciente.id }} - Nombre: {{ paciente.nombre }} {{ paciente.apellido }} - Telefono: {{ paciente.telefono }}</li>
         {% else %}
             <li>No hay pacientes registrados.</li>
         {% endfor %}

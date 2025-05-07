@@ -30,7 +30,7 @@ def obtener_nombre_paciente(db, paciente_id):
     #for p in pacientes:
     #    if p.id == paciente_id:
     #        return f"{p.nombre} {p.apellido}"
-    paciente = db.query(Paciente).filter(Paciente.id == paciente_id).fisrt()
+    paciente = db.query(Paciente).filter(Paciente.id == paciente_id).first()
     if paciente:
         return f"{paciente.nombre} {paciente.apellido}"
     return "Paciente desconocido"

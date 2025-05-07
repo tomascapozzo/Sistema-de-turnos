@@ -1,4 +1,5 @@
 from models.profesional import Profesional, Especialidades
+from sqlalchemy.orm import Session
 
 
 
@@ -16,7 +17,7 @@ def agregarprofesional(db, nombre, apellido, email, telefono, especialidad):
         apellido = apellido,
         email = email,
         telefono = telefono,
-        especialidad = especialidad
+        especialidades = especialidad
     )
     db.add(nuevoprofesional)
     db.commit()
@@ -24,7 +25,10 @@ def agregarprofesional(db, nombre, apellido, email, telefono, especialidad):
     return {'mensaje': 'Profesional creado correctamente'}
 
 def obtener_nombre_profesional(db, profesional_id):
-    profesional = db.query(Profesional).get(profesional_id).first()
+    profesional = db.query(Profesional).get(profesional_id)
     if profesional:
         return f"{profesional.nombre} {profesional.apellido}"
     return 'Profesional inexistente'
+
+def obtener_profesionales(db: Session):
+    profesionales = db.query(Profesional).all()

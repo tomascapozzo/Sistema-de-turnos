@@ -1,0 +1,37 @@
+<!-- templates/ficha_profesional.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ficha de {{profesional.nombre}} {{profesional.apellido}}</title>
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <h2>Ficha del Profesional</h2>
+    <p><strong>Nombre:</strong> {{ profesional.nombre }} {{ profesional.apellido }}</p>
+    <p><strong>Email:</strong> {{ profesional.email }}</p>
+    <p><strong>Teléfono:</strong> {{ profesional.telefono }}</p>
+    <p><strong>Especialidad:</strong> {{ profesional.especialidades }}</p>
+
+
+    <div id="calendar" style="height: 400px;"></div>
+    <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      locale: 'es',
+      events: {{ eventos|tojson }}
+    });
+
+    calendar.render();
+  });
+</script>
+
+    <a href="{{ url_for('listar_profesionales') }}">⬅ Volver a la lista</a>
+</body>
+</html>

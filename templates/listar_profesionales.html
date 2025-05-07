@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pacientes</title>
+</head>
+<body>
+    <h1>Profesionales</h1>
+    <ul>
+        {% for p in profesionales %}
+            <td><a href="{{ url_for('ver_profesional', profesional_id = p.id) }}">{{p.nombre}} {{p.apellido}} </a> </td>
+            <td>{{p.especialidad}}</td>
+            <td>{{p.telefono}}</td>
+            <td>{{p.email}}</td>
+        {% else %}
+            <li>No hay profesionales registrados.</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('crear_profesional') }}">Crear nuevo profesional</a>
+    <a href="{{ url_for('index') }}">Volver al inicio</a>
+</body>
+</html>
