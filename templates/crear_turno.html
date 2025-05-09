@@ -6,43 +6,76 @@
 </head>
 <body>
     <h2>Crear Nuevo Turno</h2>
-    <form method="POST">
+    <form method="POST" onsubmit="return validarFormulario()">
         <label for="paciente_id">Paciente:</label>
-        <select name="paciente_id" required>
+        <select name="paciente_id" id="paciente_id" required>
             {% for paciente in pacientes %}
                 <option value="{{ paciente.id }}">{{ paciente.nombre }} {{ paciente.apellido }}</option>
             {% endfor %}
-        </select><br>
+        </select><br><br>
 
         <label for="profesional_id">Profesional:</label>
-        <select name="profesional_id" required>
+        <select id="profesional_id" name="profesional_id" required onchange="actualizarHorario()">
+            <option value="">Seleccione un profesional</option>
             {% for profesional in profesionales %}
-                <option value="{{ profesional.id }}">{{ profesional.nombre }} {{ profesional.apellido }}</option>
+            <option value="{{ profesional.id }}"
+                    data-hora-inicio="{{ profesional.hora_inicio.strftime('%H:%M') }}"
+                    data-hora-fin="{{ profesional.hora_fin.strftime('%H:%M') }}">
+                {{ profesional.nombre }} {{ profesional.apellido }}
+            </option>
             {% endfor %}
-        </select><br>
+        </select><br><br>
+
+        <div id="mensajeHorario" style="font-size: 0.9em; color: gray;"></div>
 
         <label for="fecha">Fecha:</label>
-        <input type="date" name="fecha" required><br>
+        <input type="date" id="fecha" name="fecha" required><br><br>
 
         <label for="hora">Hora:</label>
-        <input type="time" name="hora" required><br>
+        <input type="time" id="hora" name="hora" required><br><br>
 
         <button type="submit">Crear Turno</button>
     </form>
-    <a href="{{ url_for('listar_turnos') }}">⬅ Volver</a>
-<script>
-  function validarFormulario() {
-    const fecha = document.getElementById('fecha').value;
-    const hora = document.getElementById('hora').value;
-    const fechaHoraIngresada = new Date(`${fecha}T${hora}`);
-    const ahora = new Date();
 
-    if (fechaHoraIngresada < ahora) {
-      alert("No se puede asignar un turno en el pasado.");
-      return false;
-    }
-    return true;
-  }
-</script>
+    <br>
+    <a href="{{ url_for('listar_turnos') }}">⬅ Volver</a> |
+    <a href="/inicio">Inicio</a>
+
+    <script>
+        function actualizarHorario() {
+            const select = document.getElementById("profesional_id");
+            const option = select.options[select.selectedIndex];
+            const horaInput = document.getElementById("hora");
+            const mensaje = document.getElementById("mensajeHorario");
+
+            const horaInicio = option.getAttribute("data-hora-inicio");
+            const horaFin = option.getAttribute("data-hora-fin");
+
+            if (horaInicio && horaFin) {
+                horaInput.min = horaInicio;
+                horaInput.max = horaFin;
+                horaInput.value = horaInicio;
+                mensaje.textContent = `Horario disponible: entre ${horaInicio} y ${horaFin}`;
+            } else {
+                horaInput.removeAttribute("min");
+                horaInput.removeAttribute("max");
+                horaInput.value = "";
+                mensaje.textContent = "";
+            }
+        }
+
+        function validarFormulario() {
+            const fecha = document.getElementById('fecha').value;
+            const hora = document.getElementById('hora').value;
+            const fechaHoraIngresada = new Date(`${fecha}T${hora}`);
+            const ahora = new Date();
+
+            if (fechaHoraIngresada < ahora) {
+                alert("No se puede asignar un turno en el pasado.");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </body>
 </html>

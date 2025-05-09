@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 
 
-def agregarprofesional(db, nombre, apellido, email, telefono, especialidad):
+def agregarprofesional(db, nombre, apellido, email, telefono, especialidad, hora_inicio, hora_fin):
     #for p in profesionales:
     #    if p.email == email:
     #        return {'error': 'Profesional existente'}
@@ -17,7 +17,7 @@ def agregarprofesional(db, nombre, apellido, email, telefono, especialidad):
         apellido = apellido,
         email = email,
         telefono = telefono,
-        especialidades = especialidad
+        especialidades = especialidad,
     )
     db.add(nuevoprofesional)
     db.commit()

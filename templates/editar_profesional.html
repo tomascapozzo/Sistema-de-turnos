@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar {{profesional.nombre}} {{profesional.apellido}} </title>
+</head>
+<body>
+    <h1>Editar Profesional</h1>
+
+    <form method="POST">
+        <label>Nombre:</label>
+        <input type="text" name="nombre" value="{{ profesional.nombre }}" required><br>
+
+        <label>Apellido:</label>
+        <input type="text" name="apellido" value="{{ profesional.apellido }}" required><br>
+
+        <label>Email:</label>
+        <input type="email" name="email" value="{{ profesional.email }}" required><br>
+
+        <label>Teléfono:</label>
+        <input type="text" name="telefono" value="{{ profesional.telefono }}" required><br>
+
+        <label>Especialidad:</label>
+        <select name="especialidad" required>
+            {% for esp in ['Terapista Ocupacional', 'Psicologia', 'Psicopedagogia', 'Psiquiatria', 'Fonoaudiologia'] %}
+                <option value="{{ esp }}" {% if profesional.especialidades == esp %}selected{% endif %}>{{ esp }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <h3>Disponibilidad</h3>
+<div id="disponibilidades">
+    {% for disp in profesional.disponibilidades %}
+        <div class="dispo">
+            <label>Día:</label>
+            <select name="dia[]">
+                {% for dia in ['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo'] %}
+                    <option value="{{ dia }}" {% if disp.dia.value == dia %}selected{% endif %}>{{ dia }}</option>
+                {% endfor %}
+            </select>
+
+            <label>Hora Inicio:</label>
+            <input type="time" name="hora_inicio[]" value="{{ disp.hora_inicio.strftime('%H:%M') }}">
+
+            <label>Hora Fin:</label>
+            <input type="time" name="hora_fin[]" value="{{ disp.hora_fin.strftime('%H:%M') }}">
+            <br><br>
+        </div>
+    {% endfor %}
+</div>
+
+
+<button type="button" onclick="agregarDisponibilidad()">➕ Agregar disponibilidad</button>
+
+<script>
+function agregarDisponibilidad() {
+    const contenedor = document.getElementById('disponibilidades');
+    const nuevaDispo = document.createElement('div');
+    nuevaDispo.innerHTML = `
+        <label>Día:</label>
+        <select name="dia[]">
+            <option value="Lunes">Lunes</option>
+            <option value="Martes">Martes</option>
+            <option value="Miercoles">Miércoles</option>
+            <option value="Jueves">Jueves</option>
+            <option value="Viernes">Viernes</option>
+            <option value="Sabado">Sábado</option>
+            <option value="Domingo">Domingo</option>
+        </select>
+
+        <label>Hora Inicio:</label>
+        <input type="time" name="hora_inicio[]">
+
+        <label>Hora Fin:</label>
+        <input type="time" name="hora_fin[]">
+        <br><br>
+    `;
+    contenedor.appendChild(nuevaDispo);
+}
+</script>
+
+
+        <button type="submit">Guardar Cambios</button>
+        <a href="{{ url_for('listar_profesionales') }}">Cancelar</a>
+    </form>
+</body>
+</html>

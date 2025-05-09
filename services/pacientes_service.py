@@ -1,9 +1,6 @@
 from models.paciente import Paciente
 
-contador_id = 1
-
 def agregarpaciente(db, nombre, apellido, email, telefono):
-    global contador_id
 
     existe = db.query(Paciente).filter(Paciente.email == email).first()
     if existe:

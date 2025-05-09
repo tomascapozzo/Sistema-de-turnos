@@ -11,14 +11,25 @@
   Apellido: <input type="text" name="apellido"><br>
   Telefono: <input type="text" name="telefono"><br>
   Email: <input type="email" name="email"> <br>
-<label for="especialidad">Especialidad:</label>
-<select name="especialidad" id="especialidad">
-  {% for esp in especialidades %}
-    <option value="{{ esp.name }}">{{ esp.value }}</option>
-  {% endfor %}
-</select><br>
-  <button type="submit">Guardar</button>
-</form>
 
+  <label for="especialidad">Especialidad:</label>
+  <select name="especialidad" id="especialidad">
+    {% for esp in especialidades %}
+      <option value="{{ esp.name }}">{{ esp.value }}</option>
+    {% endfor %}
+  </select><br>
+
+  <h3>Disponibilidad horaria</h3>
+  {% for dia in dias %}
+    <strong>{{ dia.value }}</strong><br>
+    Hora inicio: <input type="time" name="disponibilidad_{{ dia.name }}_inicio">
+    Hora fin: <input type="time" name="disponibilidad_{{ dia.name }}_fin"><br><br>
+  {% endfor %}
+
+
+
+  <button type="submit">Guardar</button>
+  <a href="/inicio">Inicio</a>
+</form>
 </body>
 </html>

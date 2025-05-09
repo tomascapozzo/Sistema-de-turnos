@@ -1,6 +1,8 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Time
+from sqlalchemy.orm import relationship
 from database.db import Base
 from enum import Enum
+
 
 class Especialidades(Enum):
     TERAPISTA = 'Terapista Ocupacional'
@@ -18,3 +20,5 @@ class Profesional(Base):
     email = Column(String(100), nullable=False)
     telefono = Column(String(20), nullable=False)
     especialidades = Column(String(100), nullable=False)
+
+    disponibilidades = relationship('Disponibilidad', back_populates='profesional')
